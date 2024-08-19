@@ -4,7 +4,7 @@ Welcome to my personal portfolio website!
 ## Live Demo
 You can view my portfolio site live [here](https://lokeshsingh78.github.io/Lokesh_portfolio/). Please note that while the site is fully functional, the mobile versions may not be optimized perfectly across all devices. I am actively working on improving responsiveness to ensure a better user experience.
 
-
+ 
 ## Table of Contents
 - [About](#about)
 - [Features](#features)
