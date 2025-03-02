@@ -75,45 +75,102 @@
         <h2 class="title">About me</h2>
         <div class="about-content">
           <div class="column left">
-            <img src="images/profile-1.jpeg" alt="Profile Picture" />
+            <img src="images/profile-1.jpeg" alt="Profile Picture" class="hover-effect" />
           </div>
           <div class="column right">
             <div class="text">
               I'm LOKESH and I'm a <span class="typing-2"></span>
             </div>
-            <p>
-              Hey there! I’m Lokesh Singh Tanwar, a B.Tech student with a love
-              for Artificial Intelligence and Data Science. My journey in
-              programming has been exciting, and I’ve learned a lot along the
-              way. I enjoy combining technology, creativity, and communication
-              in everything I do. I’m skilled in several programming languages
-              like HTML/CSS, JavaScript, React.js, c++, Java, and more. These
-              languages have helped me build dynamic websites, mobile apps, and
-              work on databases. I use tools like Visual Studio for web projects
-              and Android Studio for creating apps. When I’m not coding, I dive
-              into animation. I love creating motion graphics, designing cool
-              Rube Goldberg machines, and bringing characters to life with
-              smooth movements. Animation lets me tell stories in a fun, visual
-              way! I’m also into blogging on platforms like Dev.to and Medium,
-              where I share my coding tips, tech insights, and personal
-              experiences. My goal is to make learning fun and easy by mixing
-              humor with tech knowledge. I’ve worked on open-source projects,
-              learning how to collaborate with other developers, solve problems,
-              and improve documentation. It’s been a great way to give back to
-              the community and improve my skills. Effective communication is
-              something I truly value. Whether it's explaining complex topics,
-              working with clients in my freelance work, or sharing ideas with
-              other developers, I always aim to keep things clear and
-              straightforward. I’m always excited to learn new things, explore
-              cutting-edge technologies, and connect with others who share my
-              passions. My journey is all about growth, curiosity, and
-              creativity!
-            </p>
+            <p id="about-text"></p>
           </div>
         </div>
       </div>
     </section>
+    
+    <style>
+      .hover-effect {
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        border-radius: 10px;
+      }
+    
+      .hover-effect:hover {
+        transform: scale(1.1) rotate(3deg);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+    
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      let text = "Hey there! I'm Lokesh Singh Tanwar, a B.Tech student with a love for Artificial Intelligence and Data Science. My journey in programming has been exciting, and I've learned a lot along the way. I enjoy combining technology, creativity, and communication in everything I do. I'm skilled in several programming languages like HTML/CSS, JavaScript, React.js, C++, Java, and more. These languages have helped me build dynamic websites, mobile apps, and work on databases. I use tools like Visual Studio for web projects and Android Studio for creating apps. When I'm not coding, I dive into animation. I love creating motion graphics, designing cool Rube Goldberg machines, and bringing characters to life with smooth movements. Animation lets me tell stories in a fun, visual way! I'm also into blogging on platforms like Dev.to and Medium, where I share my coding tips, tech insights, and personal experiences. My goal is to make learning fun and easy by mixing humor with tech knowledge. I've worked on open-source projects, learning how to collaborate with other developers, solve problems, and improve documentation. It's been a great way to give back to the community and improve my skills. Effective communication is something I truly value. Whether it's explaining complex topics, working with clients in my freelance work, or sharing ideas with other developers, I always aim to keep things clear and straightforward. I'm always excited to learn new things, explore cutting-edge technologies, and connect with others who share my passions. My journey is all about growth, curiosity, and creativity!";
+    
+      let textElement = document.getElementById("about-text");
+      textElement.innerHTML = "";
+      
+      let words = text.split(" ");
+      let groupSize = 3;
+      let baseDelay = 180;
+      let transitionDuration = "0.8s";
+      words.forEach((word, index) => {
+        let wordSpan = document.createElement("span");
+        wordSpan.textContent = word;
+        wordSpan.style.position = "relative";
+        wordSpan.style.display = "inline-block";
+        wordSpan.style.opacity = "0";
+        
+        let randomX = Math.random() * 150 * (Math.random() < 0.5 ? -1 : 1);
+        let randomY = Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1);
+        wordSpan.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        
+        textElement.appendChild(wordSpan);
+        
+        if (index < words.length - 1) {
+          let spaceSpan = document.createElement("span");
+          spaceSpan.innerHTML = "&nbsp;";
+          textElement.appendChild(spaceSpan);
+        }
+      });
+  
+      function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+          rect.bottom >= 0
+        );
+      }
+ 
+      let animationStarted = false;
 
+      function startAnimation() {
+        if (animationStarted) return;
+        
+        const aboutSection = document.getElementById('about');
+        if (isInViewport(aboutSection)) {
+          animationStarted = true;
+          
+        
+          const wordSpans = textElement.querySelectorAll('span');
+          const wordsOnly = Array.from(wordSpans).filter(span => span.textContent.trim() !== '');
+          
+      
+          wordsOnly.forEach((wordSpan, index) => {
+            setTimeout(() => {
+              wordSpan.style.transition = `all ${transitionDuration} cubic-bezier(0.25, 0.1, 0.25, 1.0)`;
+              wordSpan.style.opacity = "1";
+              wordSpan.style.transform = "translate(0, 0)";
+            }, Math.floor(index / groupSize) * baseDelay);
+          });
+        }
+      }
+      
+
+      window.addEventListener('scroll', startAnimation);
+      
+      startAnimation();
+    });
+    </script>
+    
     <section class="skills" id="skills">
       <div class="max-width">
         <br />
